@@ -1659,13 +1659,15 @@ def main(args):
 
     marks = None
     is_tmp = False
-    gitdir = os.environ.get('GIT_DIR', None)
+    gitdir = os.environ.get('GIT_COMMON_DIR', None)
+    if not gitdir:
+        gitdir = os.environ.get('GIT_DIR', None)
 
     if len(args) < 3:
         die('Not enough arguments.')
 
     if not gitdir:
-        die('GIT_DIR not set')
+        die('Neither GIT_COMMON_DIR nor GIT_DIR not set')
 
     alias = args[1]
     url = args[2]
