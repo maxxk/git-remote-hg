@@ -1662,7 +1662,10 @@ def main(args):
     gitdir = os.environ.get('GIT_COMMON_DIR', None)
     if not gitdir:
         gitdir = os.environ.get('GIT_DIR', None)
-
+    
+    if '.git/worktrees' in gitdir:
+        gitdir, _, _ = gitdir.partition('/worktrees')
+    
     if len(args) < 3:
         die('Not enough arguments.')
 

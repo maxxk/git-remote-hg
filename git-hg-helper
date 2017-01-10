@@ -936,7 +936,10 @@ def main(argv):
 
     # init repo dir
     # we will take over dir management ...
-    init_git(os.environ.pop('GIT_DIR', None))
+    gitdir = os.environ.pop('GIT_COMMON_DIR', os.environ.pop('GIT_DIR', None))
+    if '.git/worktrees' in gitdir:
+        gitdir, _, _ = gitdir.partition('/worktrees')
+    init_git(gitdir)
 
     subcommands = get_subcommands()
 
